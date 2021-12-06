@@ -1,0 +1,62 @@
+<template>
+  <div>
+    <div class="card">
+      <img :src="img" class="card-img-top" alt="'foto'+name" />
+      <div class="card-body">
+        <h5 class="card-title">{{ name }}</h5>
+        <p class="card-text">{{ desc }}</p>
+        <button
+          v-if="!unfollow"
+          type="button"
+          class="btn btn-primary"
+          @click="followClass"
+        >
+          Follow
+        </button>
+        <button
+          v-else
+          type="button"
+          class="btn btn-outline-danger"
+          @click="followClass"
+        >
+          UnFollow
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    name: {
+      type: String,
+      default: "Nama kelas"
+    },
+    desc: {
+      type: String,
+      default: "Ini deskripsi kelas saya ya"
+    },
+    img: {
+      type: String,
+      default:
+        "https://shiftacademy.id/wp-content/uploads/2021/11/WhatsApp-Image-2021-11-15-at-4.50.06-PM.jpeg"
+    },
+    unfollow: {
+      type: Boolean,
+      default: false
+    }
+  },
+  methods: {
+    followClass() {
+      const data = {
+        name: this.name,
+        desc: this.desc,
+        img: this.img
+      };
+      if (this.unfollow) this.$emit("unfollow-class", data);
+      else this.$emit("follow-class", data);
+    }
+  }
+};
+</script>
